@@ -5,9 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -17,6 +15,7 @@ public class Main {
     private final CategoryPageLogic CATEGORY_PAGE_LOGIC = new CategoryPageLogic();
     private final SearchPageLogic SEARCH_PAGE_LOGIC = new SearchPageLogic();
     private final CartPageLogic CART_PAGE_LOGIC = new CartPageLogic();
+    private  final ProductInfoPageLogic PRODUCT_INFO_PAGE_LOGIC = new ProductInfoPageLogic();
 
     @BeforeMethod
     public void before() {
@@ -41,11 +40,6 @@ public class Main {
 
         String productPriceInBasket = CART_PAGE_LOGIC.getProductPrice();
 
-        HashMap<String, String> productInfo = new HashMap<>();
-        productInfo.put(productTitleInBasket, productPriceInBasket);
-
-        FileWriter fileWriter = new FileWriter("product.txt");
-        fileWriter.write(String.valueOf(productInfo));
-        fileWriter.close();
+        PRODUCT_INFO_PAGE_LOGIC.writeProductInfoToFile(productTitleInBasket,productPriceInBasket);
     }
 }
